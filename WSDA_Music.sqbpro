@@ -65,4 +65,286 @@ WHERE
 	total==1.98
 ORDER BY
 	InvoiceDate
-</sql><current_tab id="3"/></tab_sql></sqlb_project>
+
+</sql><sql name="SQL 5">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION: HOW MANY INVOICES 
+	EXIST BETWEEN $1.98 AND $5.00
+	
+*/
+
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	total BETWEEN 1.98 AND 5.00
+ORDER BY
+	total
+
+</sql><sql name="SQL 6">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION: HOW MANY INVOICES 
+	DO WE HAVE THAT ARE EXACTLY $1.98 
+	OR $3.96
+	
+	
+*/
+
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	total IN (1.98,3.96)
+ORDER BY
+	total</sql><sql name="SQL 7">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION:How many invoices were billed
+	in Brussels?
+	
+	
+*/
+
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	BillingCity='Brussels' 
+ORDER BY
+	InvoiceDate</sql><sql name="SQL 8">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION:How many invoices were billed
+	billed to Brussels, Orlando or Paris?
+	
+	
+	
+*/
+
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	BillingCity IN ('Brussels','Orlando','Paris')
+ORDER BY
+	InvoiceDate</sql><sql name="SQL 9">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION:How many invoices were billed
+	billed in cities that starts with B?
+	
+	
+*/
+
+-- % is refered to as wild character
+-- I dont care what comes next
+
+
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	BillingCity LIKE 'B%'
+ORDER BY
+	InvoiceDate</sql><sql name="SQL 10">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION:How many invoices were billed
+	billed in cities that have a B anywhere
+	in its name?
+	
+	
+	
+*/
+
+-- % is refered to as wild character
+-- I dont care what comes next
+
+
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	BillingCity LIKE '%B%'
+ORDER BY
+	InvoiceDate</sql><sql name="SQL 11">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION:How many invoices 
+	were billed on May 22,2010	
+*/
+
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	DATE(InvoiceDate) = '2010-05-22'
+	--WE DONT HAVE TO INCLUDE THE TIME POTION
+	
+ORDER BY
+	InvoiceDate</sql><sql name="SQL 12">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION:How many invoices 
+	were billed after May 22,2010 AND
+	have a total of less than 3:00?
+*/
+
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	DATE(InvoiceDate) &gt; '2010-05-22' AND total&lt;3.00
+	--WE DONT HAVE TO INCLUDE THE TIME POTION
+	
+ORDER BY
+	InvoiceDate</sql><sql name="SQL 13">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION:get all invoices 
+	who's billing city is starts WITH
+	p or starts with D
+	
+*/
+
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	BillingCity like 'P%' OR BillingCity
+	like 'D%'
+ORDER BY
+	InvoiceDate</sql><sql name="SQL 14">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION:get all invoices 
+	that are greater than
+	1.98 who's billing city is starts WITH
+	p or starts with D
+	
+*/
+
+--PEMDAS- Parentheses, Exponents, Multiplication/Division addition substraction
+
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total
+FROM
+	Invoice
+WHERE 
+	total&gt;1.98 AND( BillingCity like 'P%' OR BillingCity
+	like 'D%')
+ORDER BY
+	total</sql><sql name="SQL 15">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION:
+	WSDA Music sales goal
+	Sales Categories
+	Baseline Purchase-between $0.99 and $1.99
+	Low Purchase- between $2.00 and $6.99
+	Target Purchase -Between $7.00 and $15.00
+	Top Performer- Above $15.00
+*/
+
+--PEMDAS- Parentheses, Exponents, Multiplication/Division addition substraction
+
+SELECT
+	InvoiceDate,
+	BillingAddress,
+	BillingCity,
+	total,
+	CASE 
+	WHEN total&lt;2.00 THEN 'BaseLine Purchase'
+	WHEN total BETWEEN 2.00 AND 6.99 THEN 'Low Purchase'
+	WHEN total BETWEEN 7.00 AND 15.00 THEN 'Target Purchase'
+	ELSE 'Top Performer'
+	END AS 'PurchaseType'
+	
+	
+	
+FROM
+	Invoice
+WHERE 
+	PurchaseType= 'Top Performer'
+ORDER BY
+	total</sql><sql name="SQL 16">SELECT Name as &quot;Track Name&quot;, UnitPrice as &quot;Price&quot;, Composer as &quot;Composer&quot;,
+CASE 
+WHEN UnitPrice &lt; 1.00 THEN &quot;Budget&quot;
+WHEN UnitPrice BETWEEN 1.00 AND 1.49 THEN &quot;Regular&quot;
+WHEN UnitPrice BETWEEN 1.50 AND 1.99 THEN &quot;Premium&quot;
+ELSE &quot;Exclusive&quot;
+END AS &quot;PriceCategory&quot;
+FROM  Track
+ORDER BY
+    UnitPrice
+
+</sql><sql name="SQL 17">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION:
+	JOIN
+*/
+SELECT 
+	*
+FROM 
+	Invoice
+INNER JOIN
+	Customer
+ON
+	Invoice.CustomerId=Customer.CustomerId
+</sql><sql name="SQL 18">/*
+	CREATED BY: VIHANGA SUPASAN
+	CREATED DATE: 04/07/2024
+	DESCRIPTION:
+	JOIN
+*/
+SELECT 
+	FirstName,LastName,InvoiceId
+FROM 
+	Invoice
+INNER JOIN
+	Customer
+ON
+	Invoice.CustomerId=Customer.CustomerId
+</sql><current_tab id="17"/></tab_sql></sqlb_project>
